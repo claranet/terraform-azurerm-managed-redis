@@ -64,7 +64,7 @@ module "managed_redis" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.3.0 |
-| azurerm | ~> 4.0 |
+| azurerm | ~> 4.54 |
 
 ## Modules
 
