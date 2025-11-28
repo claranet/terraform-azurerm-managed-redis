@@ -10,9 +10,11 @@ module "managed_redis" {
   environment = var.environment
   stack       = var.stack
 
+  sku_name = "Balanced_B10"
+
   logs_destinations_ids = [
     module.run.logs_storage_account_id,
-    module.run.log_analytics_workspace_id
+    module.run.log_analytics_workspace_id,
   ]
 
   extra_tags = {

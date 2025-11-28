@@ -46,9 +46,11 @@ module "managed_redis" {
   environment = var.environment
   stack       = var.stack
 
+  sku_name = "Balanced_B10"
+
   logs_destinations_ids = [
     module.run.logs_storage_account_id,
-    module.run.log_analytics_workspace_id
+    module.run.log_analytics_workspace_id,
   ]
 
   extra_tags = {
@@ -68,7 +70,7 @@ module "managed_redis" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | n/a |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
 
 ## Resources
 
@@ -81,14 +83,14 @@ module "managed_redis" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| allowed\_cidrs | List of allowed CIDR ranges to access the Azure Managed Redis resource. | `list(string)` | `[]` | no |
-| allowed\_subnet\_ids | List of allowed subnets IDs to access the Azure Managed Redis resource. | `list(string)` | `[]` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_name | Custom Azure Managed Redis, generated if not set. | `string` | `""` | no |
+| default\_database\_options | A Managed Redis instance will not be functional without a database. This block is intentionally optional to allow removal and re-creation of the database for troubleshooting purposes. | <pre>object({<br/>    access_keys_authentication_enabled = optional(bool)<br/>    client_protocol                    = optional(string, "Encrypted")<br/>    clustering_policy                  = optional(string, "OSSCluster")<br/>    eviction_policy                    = optional(string, "VolatileLRU")<br/>    # geo_replication_group_name =<br/><br/>    persistence_append_only_file_backup_frequency = optional(string) # AOF: The only possible value is '1s'<br/>    persistence_redis_database_backup_frequency   = optional(string) # RDB: Possible values are '1h', '6h', '12h'<br/><br/>    module = optional(object({<br/>      name = string<br/>      args = optional(list(string))<br/>    }))<br/>  })</pre> | `null` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Additional tags to add on resources. | `map(string)` | `{}` | no |
+| high\_availability\_enabled | Whether to enable high availability for the Redis Cluster. | `bool` | `true` | no |
 | identity | Identity block information. | <pre>object({<br/>    type         = optional(string, "SystemAssigned")<br/>    identity_ids = optional(list(string))<br/>  })</pre> | `{}` | no |
 | location | Azure region to use. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
@@ -97,9 +99,9 @@ module "managed_redis" {
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
-| network\_bypass | Specify whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'. | `list(string)` | <pre>[<br/>  "Logging",<br/>  "Metrics",<br/>  "AzureServices"<br/>]</pre> | no |
 | public\_network\_access\_enabled | Whether the Azure Managed Redis is available from public network. | `bool` | `false` | no |
 | resource\_group\_name | Name of the resource group. | `string` | n/a | yes |
+| sku\_name | Redis Cluster SKU name. | `string` | n/a | yes |
 | stack | Project stack name. | `string` | n/a | yes |
 
 ## Outputs
