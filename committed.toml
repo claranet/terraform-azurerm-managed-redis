@@ -1,0 +1,19 @@
+allowed_types = [
+    "build",
+    "chore",
+    "ci",
+    "docs",
+    "feat",
+    "fix",
+    "perf",
+    "refactor",
+    "revert",
+    "style",
+    "test",
+]
+line_length = 150
+merge_commit = true
+style = "conventional"
+subject_capitalized = false
+subject_length = 130
+ignore_author_re = "fr-ops4ops+bot-renovate@fr.clara.net"
