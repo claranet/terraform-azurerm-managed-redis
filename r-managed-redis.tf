@@ -23,9 +23,10 @@ resource "azurerm_managed_redis" "main" {
 
       dynamic "module" {
         for_each = db.value.module[*]
+        iterator = redis_mod
         content {
-          name = module.value.name
-          args = module.value.args
+          name = redis_mod.value.name
+          args = redis_mod.value.args
         }
       }
     }

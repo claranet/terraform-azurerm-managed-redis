@@ -90,7 +90,7 @@ resource "azurerm_key_vault_secret" "redis_port" {
 resource "azurerm_key_vault_secret" "redis_connection_string" {
   key_vault_id = module.run.key_vault_id
   name         = "redis-connection-string"
-  value        = format("redis://:%s@%s:%s", module.managed_redis.resource.default_database[0].primary_access_key, module.managed_redis.resource.hostname, module.managed_redis.resource.default_database[0].port)
+  value        = format("redis://:%s@%s:%s", azurerm_key_vault_secret.redis_password.value, module.managed_redis.resource.hostname, module.managed_redis.resource.default_database[0].port)
 }
 ```
 
