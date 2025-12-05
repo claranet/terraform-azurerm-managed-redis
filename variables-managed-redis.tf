@@ -21,7 +21,7 @@ variable "high_availability_enabled" {
   nullable    = false
 }
 
-variable "default_database_options" {
+variable "default_database_config" {
   description = "A Managed Redis instance will not be functional without a database. This block is intentionally optional to allow removal and re-creation of the database for troubleshooting purposes."
   type = object({
     access_keys_authentication_enabled = optional(bool)

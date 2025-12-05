@@ -14,7 +14,7 @@ module "managed_redis" {
 
   high_availability_enabled = true
 
-  default_database_options = {
+  default_database_config = {
     access_keys_authentication_enabled = true
     clustering_policy                  = "OSSCluster"
     eviction_policy                    = "VolatileLRU"

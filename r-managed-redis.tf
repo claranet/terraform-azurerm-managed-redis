@@ -10,7 +10,7 @@ resource "azurerm_managed_redis" "main" {
   high_availability_enabled = var.high_availability_enabled
 
   dynamic "default_database" {
-    for_each = var.default_database_options[*]
+    for_each = var.default_database_config[*]
     iterator = db
     content {
       access_keys_authentication_enabled = db.value.access_keys_authentication_enabled
