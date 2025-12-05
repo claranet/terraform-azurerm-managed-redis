@@ -4,6 +4,34 @@ resource "azurerm_managed_redis" "main" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
+  sku_name = var.sku_name
+
+  public_network_access     = var.public_network_access_enabled ? "Enabled" : "Disabled"
+  high_availability_enabled = var.high_availability_enabled
+
+  dynamic "default_database" {
+    for_each = var.default_database_config[*]
+    iterator = db
+    content {
+      access_keys_authentication_enabled = db.value.access_keys_authentication_enabled
+      client_protocol                    = db.value.client_protocol
+      clustering_policy                  = db.value.clustering_policy
+      eviction_policy                    = db.value.eviction_policy
+
+      persistence_append_only_file_backup_frequency = db.value.persistence_append_only_file_backup_frequency
+      persistence_redis_database_backup_frequency   = db.value.persistence_redis_database_backup_frequency
+
+      dynamic "module" {
+        for_each = db.value.module[*]
+        iterator = redis_mod
+        content {
+          name = redis_mod.value.name
+          args = redis_mod.value.args
+        }
+      }
+    }
+  }
+
   dynamic "identity" {
     for_each = var.identity[*]
     content {
