@@ -37,22 +37,38 @@ resource "azurerm_key_vault_secret" "redis_hostname" {
   key_vault_id = module.run.key_vault_id
   name         = "redis-hostname"
   value        = module.managed_redis.hostname
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_key_vault_secret" "redis_password" {
   key_vault_id = module.run.key_vault_id
   name         = "redis-password"
   value        = module.managed_redis.primary_access_key
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_key_vault_secret" "redis_port" {
   key_vault_id = module.run.key_vault_id
   name         = "redis-port"
   value        = module.managed_redis.port
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_key_vault_secret" "redis_connection_string" {
   key_vault_id = module.run.key_vault_id
   name         = "redis-connection-string"
   value        = format("redis://:%s@%s:%s", azurerm_key_vault_secret.redis_password.value, module.managed_redis.hostname, module.managed_redis.port)
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
