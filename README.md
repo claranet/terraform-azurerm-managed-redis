@@ -113,27 +113,27 @@ resource "azurerm_key_vault_secret" "redis_connection_string" {
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | azurecaf | ~> 1.3.0 |
 | azurerm | ~> 4.54 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [azurerm_managed_redis.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/managed_redis) | resource |
 | [azurecaf_name.managed_redis](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_name | Custom Azure Managed Redis, generated if not set. | `string` | `""` | no |
 | default\_database\_config | A Managed Redis instance will not be functional without a database. This block is intentionally optional to allow removal and re-creation of the database for troubleshooting purposes. | <pre>object({<br/>    access_keys_authentication_enabled = optional(bool)<br/>    client_protocol                    = optional(string, "Encrypted")<br/>    clustering_policy                  = optional(string, "OSSCluster")<br/>    eviction_policy                    = optional(string, "VolatileLRU")<br/>    # geo_replication_group_name =<br/><br/>    persistence_append_only_file_backup_frequency = optional(string) # AOF: The only possible value is '1s'<br/>    persistence_redis_database_backup_frequency   = optional(string) # RDB: Possible values are '1h', '6h', '12h'<br/><br/>    module = optional(object({<br/>      name = string<br/>      args = optional(list(string))<br/>    }))<br/>  })</pre> | `null` | no |
@@ -158,7 +158,7 @@ resource "azurerm_key_vault_secret" "redis_connection_string" {
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | hostname | The hostname of the Redis Cluster. |
 | id | Azure Managed Redis ID. |
 | identity\_principal\_id | Azure Managed Redis system identity principal ID. |
