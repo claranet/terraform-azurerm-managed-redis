@@ -1,6 +1,7 @@
 output "resource" {
   description = "Azure Managed Redis resource object."
   value       = azurerm_managed_redis.main
+  sensitive   = true
 }
 
 output "id" {
