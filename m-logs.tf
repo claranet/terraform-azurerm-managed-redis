@@ -1,6 +1,6 @@
 module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "~> 8.0"
+  version = "~> 9.0"
 
   resource_id = azurerm_managed_redis.main.id
 
