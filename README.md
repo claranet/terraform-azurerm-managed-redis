@@ -116,13 +116,13 @@ resource "azurerm_key_vault_secret" "redis_connection_string" {
 | Name | Version |
 | ---- | ------- |
 | azurecaf | ~> 1.3.0 |
-| azurerm | ~> 4.54 |
+| azurerm | ~> 5.0 |
 
 ## Modules
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 9.0 |
 
 ## Resources
 
